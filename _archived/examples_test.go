@@ -18,7 +18,6 @@ package examples_test
 
 import (
 	"fmt"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"regexp"
@@ -167,7 +166,7 @@ func walkJSONFiles(inDir string, fn func(name, path string, data []byte)) error 
 		file := filepath.Base(path)
 		if ext := filepath.Ext(file); ext == ".json" || ext == ".yaml" {
 			glog.Infof("Testing %s", path)
-			data, err := ioutil.ReadFile(path)
+			data, err := os.ReadFile(path)
 			if err != nil {
 				return err
 			}
@@ -423,7 +422,7 @@ func TestReadme(t *testing.T) {
 	}
 
 	for _, path := range paths {
-		data, err := ioutil.ReadFile(path.file)
+		data, err := os.ReadFile(path.file)
 		if err != nil {
 			t.Errorf("Unable to read file %s: %v", path, err)
 			continue
